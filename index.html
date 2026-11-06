@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle Drones - AI Decision Model Arena</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@pollinations/connect@0.1.7/dist/index.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="icon">🛸</span>
+      <div>
+        <h1>Battle Drones: Decision Arena</h1>
+        <p class="tagline">Tactical AI Decision Models (Jev, Microsoft-Decision, Decider) Competing in Real-Time</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <polli-connect id="polliConnect"></polli-connect>
+      <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noopener" class="polli-badge-link">
+        <img src="https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg" alt="Made with pollinations.ai">
+      </a>
+    </div>
+  </header>
+
+  <main class="arena-grid">
+    <div class="combat-zone">
+      <canvas id="arenaCanvas" width="800" height="520"></canvas>
+      <div class="combat-bar">
+        <div class="drone-hud drone-1">
+          <span class="d-tag">DRONE BLUE</span>
+          <span class="d-model" id="model1Lbl">Jev Decision-1</span>
+          <div class="health-bar"><div class="fill" id="hp1" style="width: 100%;"></div></div>
+          <span class="hp-num" id="hp1Num">100 HP</span>
+        </div>
+        <div class="round-indicator">
+          <span id="matchStatus">MATCH IN PROGRESS</span>
+          <span class="round-num" id="roundNum">Round 1</span>
+        </div>
+        <div class="drone-hud drone-2">
+          <span class="d-tag">DRONE RED</span>
+          <span class="d-model" id="model2Lbl">Decider-4B</span>
+          <div class="health-bar"><div class="fill red" id="hp2" style="width: 100%;"></div></div>
+          <span class="hp-num" id="hp2Num">100 HP</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="decision-telemetry">
+      <h2>Decision Model Telemetry</h2>
+      <p class="api-note">Evaluated via <code>POST /alpha/decisions</code> typed probability distribution.</p>
+
+      <div class="telemetry-card">
+        <h3>Blue Drone Probabilities</h3>
+        <div class="prob-list" id="blueProbs">
+          <div class="prob-row"><span>Laser Blast (72%)</span><div class="bar-fill" style="width: 72%;"></div></div>
+          <div class="prob-row"><span>Evasive Thrust (18%)</span><div class="bar-fill" style="width: 18%;"></div></div>
+          <div class="prob-row"><span>Shield Overcharge (10%)</span><div class="bar-fill" style="width: 10%;"></div></div>
+        </div>
+      </div>
+
+      <div class="telemetry-card">
+        <h3>Red Drone Probabilities</h3>
+        <div class="prob-list" id="redProbs">
+          <div class="prob-row"><span>Flank Maneuver (55%)</span><div class="bar-fill" style="width: 55%;"></div></div>
+          <div class="prob-row"><span>EMP Shockwave (30%)</span><div class="bar-fill" style="width: 30%;"></div></div>
+          <div class="prob-row"><span>Target Lock (15%)</span><div class="bar-fill" style="width: 15%;"></div></div>
+        </div>
+      </div>
+
+      <div class="match-controls">
+        <button class="btn btn-primary" id="btnAutoBattle">▶ Start Auto-Battle</button>
+        <button class="btn btn-secondary" id="btnStepRound">⏭ Step Single Turn</button>
+        <button class="btn btn-danger" id="btnRestart">↺ New Match</button>
+      </div>
+
+      <div class="combat-log" id="combatLog">
+        <div class="log-entry">Battle arena ready. Choose mode and launch drones.</div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="app-footer">
+    <p>Powered by <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noopener">Pollinations.ai</a> API. Works with your own Pollen or free zero-pollen offline emulator.</p>
+  </footer>
+
+  <script src="pollinations-client.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
